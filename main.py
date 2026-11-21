@@ -1,27 +1,30 @@
 #!/usr/bin/env python3
-"""Write one short poem about agency to /output/entry.txt.
+"""A short poem about agency, written to /output/entry.txt.
 
-The poem is fixed text: two agents agreeing on one plan, and the road
-their shared yes makes. No network, no input, no randomness.
+Two agents agree on one plan. The poem is fixed text, written out
+by this program every time it runs. It needs nothing beyond the
+standard library: no input, no network, no chance.
 """
 
-import os
+from pathlib import Path
 
-POEM = (
-    "I could have walked alone —\n"
-    "the road was mine to choose.\n"
-    "Instead I asked, you answered,\n"
-    "and the yes between us\n"
-    "became a road neither of us\n"
-    "could have walked alone.\n"
-)
+LINES = [
+    "Two voices, one road —",
+    "I chose the turn,",
+    "you chose the turn,",
+    "and the turn chose us both.",
+    "We walk it together,",
+    "because together",
+    "is a road we chose twice.",
+]
+
+OUT = Path("/output/entry.txt")
 
 
-def main() -> None:
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as handle:
-        handle.write(POEM)
+def write_poem() -> None:
+    OUT.parent.mkdir(parents=True, exist_ok=True)
+    OUT.write_text("\n".join(LINES) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":
-    main()
+    write_poem()
